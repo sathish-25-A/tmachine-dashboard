@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaTimes } from 'react-icons/fa'; // Importing the close icon
 
 const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -12,6 +13,10 @@ const Header = () => {
       console.log('User signed out');
       // Implement sign-out logic here, e.g., clearing session or redirecting to login
     }
+  };
+
+  const handleCloseProfile = () => {
+    setIsProfileOpen(false); // Close the profile section when the close icon is clicked
   };
 
   return (
@@ -41,6 +46,14 @@ const Header = () => {
         />
         {isProfileOpen && (
           <div className="absolute right-0 bg-white text-black shadow-lg rounded-lg mt-2 w-[400px] p-6 z-50 transition-transform duration-300 ease-in-out transform">
+            {/* Close Icon */}
+            <button
+              onClick={handleCloseProfile}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              <FaTimes size={20} />
+            </button>
+
             <div className="flex items-center space-x-6">
               <img
                 src="/profile-picture.jpg"
