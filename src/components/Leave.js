@@ -1,77 +1,81 @@
 import React from "react";
-import { FaRegCalendarAlt, FaClipboardCheck, FaBriefcaseMedical, FaExclamationCircle, FaBaby } from "react-icons/fa";
+import {
+  FaRegCalendarAlt,
+  FaClipboardCheck,
+  FaBriefcaseMedical,
+  FaExclamationCircle,
+  FaBaby,
+} from "react-icons/fa";
 
 const Leave = () => {
   const leaveTypes = [
-    { 
-      name: "Compensatory Off", 
-      available: "0 day", 
-      booked: "0 day", 
-      icon: <FaClipboardCheck className="text-blue-500 text-2xl" /> 
+    {
+      name: "Compensatory Off",
+      available: "0 day",
+      booked: "0 day",
+      icon: <FaClipboardCheck className="text-blue-500 text-2xl" />,
     },
-    { 
-      name: "Earned Leave", 
-      available: "4 days", 
-      booked: "0 day", 
-      icon: <FaRegCalendarAlt className="text-green-500 text-2xl" /> 
+    {
+      name: "Earned Leave",
+      available: "4 days",
+      booked: "0 day",
+      icon: <FaRegCalendarAlt className="text-green-500 text-2xl" />,
     },
-    { 
-      name: "Sick Leave", 
-      available: "0 day", 
-      booked: "0 day", 
-      icon: <FaBriefcaseMedical className="text-red-500 text-2xl" /> 
+    {
+      name: "Sick Leave",
+      available: "0 day",
+      booked: "0 day",
+      icon: <FaBriefcaseMedical className="text-red-500 text-2xl" />,
     },
-    { 
-      name: "Leave Without Pay", 
-      available: "N/A", 
-      booked: "0 day", 
-      icon: <FaExclamationCircle className="text-yellow-500 text-2xl" /> 
+    {
+      name: "Leave Without Pay",
+      available: "N/A",
+      booked: "0 day",
+      icon: <FaExclamationCircle className="text-yellow-500 text-2xl" />,
     },
-    { 
-      name: "Paternity Leave", 
-      available: "0 day", 
-      booked: "0 day", 
-      icon: <FaBaby className="text-purple-500 text-2xl" /> 
+    {
+      name: "Paternity Leave",
+      available: "0 day",
+      booked: "0 day",
+      icon: <FaBaby className="text-purple-500 text-2xl" />,
     },
   ];
 
   return (
-    <div className="bg-white shadow-md p-6 rounded-lg space-y-6">
-      <h2 className="text-xl font-semibold mb-4">Leave</h2>
+    <div className="bg-gray-50 shadow-lg p-6 rounded-lg max-w-4xl mx-auto">
+      <h2 className="text-2xl font-semibold mb-6 text-center">Leave Overview</h2>
 
       {/* Leave List */}
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {leaveTypes.map((leave, index) => (
-          <div 
-            key={index} 
-            className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md"
+          <div
+            key={index}
+            className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition"
           >
-            {/* Icon and Leave Name */}
-            <div className="flex items-center w-1/3">
-              {leave.icon}
-              <div className="ml-4">
-                <h3 className="font-semibold text-gray-700">{leave.name}</h3>
-              </div>
-            </div>
+            {/* Icon */}
+            <div className="mb-4">{leave.icon}</div>
+
+            {/* Leave Name */}
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
+              {leave.name}
+            </h3>
 
             {/* Leave Details */}
-            <div className="flex items-center justify-between w-1/3">
-              <div className="text-center">
-                <p className="text-gray-600 text-sm">Available</p>
+            <div className="flex justify-between w-full text-center text-sm mb-4">
+              <div className="w-1/2">
+                <p className="text-gray-500">Available</p>
                 <p className="font-semibold text-gray-800">{leave.available}</p>
               </div>
-              <div className="text-center">
-                <p className="text-gray-600 text-sm">Booked</p>
+              <div className="w-1/2">
+                <p className="text-gray-500">Booked</p>
                 <p className="font-semibold text-gray-800">{leave.booked}</p>
               </div>
             </div>
 
             {/* Apply Leave Button */}
-            <div className="w-1/3 text-right">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                Apply Leave
-              </button>
-            </div>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full text-sm font-medium">
+              Apply Leave
+            </button>
           </div>
         ))}
       </div>

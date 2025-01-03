@@ -65,8 +65,8 @@ const Overview = () => {
   };
 
   return (
-    <div className="p-4 space-y-4">
-      <div className="bg-white p-4 rounded shadow overflow-y-auto max-h-[350px] w-[350px]"> {/* Reduced height and width */}
+    <div className="p-4 space-y-4  w-[365px]">
+      <div className="bg-white p-4 rounded shadow overflow-y-auto max-h-[350px]"> {/* Reduced height and width */}
         <div className="flex items-center space-x-3">
           <img
             src={user.profileImage}

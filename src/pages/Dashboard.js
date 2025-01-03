@@ -16,17 +16,22 @@ const Dashboard = () => {
     setActiveLink(link);
   };
 
+  // Reset to default view (Activities) when clicking the logo or Overview
+  const resetToDefault = () => {
+    setActiveLink("Activities");
+  };
+
   return (
-    <div className="p-4">
+    <div className="p-4 overflow-hidden">
       {/* Two-column layout */}
-      <div className="grid grid-cols-[350px_1fr] gap-4">
+      <div className="grid grid-cols-[390px_1fr] gap-4 max-w-full">
         {/* Left Column with fixed width */}
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-hidden">
           {/* Parent scrollable container */}
           <div className="max-h-[600px] overflow-y-auto custom-scrollbar">
             <div className="grid grid-cols-1 gap-2">
               {/* Overview */}
-              <div className="w-full">
+              <div className="w-full" onClick={resetToDefault}>
                 <Overview />
               </div>
 
@@ -43,10 +48,10 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="space-y-4">
+        {/* Right Column with scrollable content */}
+        <div className="space-y-4 overflow-hidden">
           {/* Navigation Section */}
-          <div className="flex space-x-4 overflow-x-auto">
+          <div className="flex space-x-4">
             {links.map((link, index) => (
               <a
                 key={index}
@@ -61,11 +66,14 @@ const Dashboard = () => {
             ))}
           </div>
 
-          {/* Conditional Rendering of Components */}
-          {activeLink === "Activities" && <WorkSchedule />}
-          {activeLink === "Profile" && <Profile />}
-          {activeLink === "Leave" && <Leave />}
-          {activeLink === "Attendance" && <Attendance />}
+          {/* Scrollable container for component rendering */}
+          <div className="max-h-[600px] overflow-y-auto custom-scrollbar">
+            {/* Conditional Rendering of Components */}
+            {activeLink === "Activities" && <WorkSchedule />}
+            {activeLink === "Profile" && <Profile />}
+            {activeLink === "Leave" && <Leave />}
+            {activeLink === "Attendance" && <Attendance />}
+          </div>
         </div>
       </div>
     </div>

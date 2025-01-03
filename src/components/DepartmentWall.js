@@ -9,8 +9,8 @@ const DepartmentWall = () => {
   };
 
   return (
-    <div className="p-4 space-y-4">
-      <div className="bg-white p-4 rounded shadow w-[350px]"> {/* Reduced width */}
+    <div className="p-4 space-y-4 w-[365px]">
+      <div className="bg-white p-4 rounded shadow "> {/* Reduced width */}
         <h3 className="text-xl font-bold">Reporting To</h3>
         <div className="flex items-center space-x-3 mt-4"> {/* Reduced spacing */}
           <img

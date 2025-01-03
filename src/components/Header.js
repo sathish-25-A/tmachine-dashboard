@@ -1,71 +1,68 @@
 import React, { useState } from 'react';
 
 const Header = () => {
-  // State to toggle the profile dropdown visibility
-  const [isProfileOpen, setIsProfileOpen] = useState(false); 
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // Toggle profile dropdown visibility when profile image is clicked
   const handleProfileClick = () => {
-    setIsProfileOpen(!isProfileOpen);  
+    setIsProfileOpen(!isProfileOpen);
   };
 
-  // Handle sign-out logic (clear session, redirect, etc.)
   const handleSignOut = () => {
-    console.log('User signed out');
-    // Implement your sign-out logic here
-    // For example, clearing the session or redirecting to login
+    if (window.confirm('Are you sure you want to sign out?')) {
+      console.log('User signed out');
+      // Implement sign-out logic here, e.g., clearing session or redirecting to login
+    }
   };
 
   return (
-    <div className="bg-blue-900 text-white flex justify-between items-center p-2">
+    <header className="bg-blue-900 text-white flex justify-between items-center p-4">
+      {/* Logo and Navigation */}
       <div className="flex items-center">
-        {/* Logo */}
         <div className="text-2xl font-bold">
-          <img src="/logo.png" alt="Logo" className="h-8" /> {/* Replace with actual logo path */}
+          <img src="T-Machine.AI_logo.png" alt="Logo" className="h-8" />
         </div>
         <nav className="ml-10">
           <ul className="flex space-x-6">
-            <li className="cursor-pointer">My Space</li>
-            <li className="cursor-pointer">Team</li>
-            <li className="cursor-pointer">Organization</li>
+            <li className="cursor-pointer hover:text-blue-300">My Space</li>
+            <li className="cursor-pointer hover:text-blue-300">Team</li>
+            <li className="cursor-pointer hover:text-blue-300">Organization</li>
           </ul>
         </nav>
       </div>
 
-      <div className="flex items-center space-x-4">
-        {/* Profile Picture */}
-        <div className="relative">
-          <img 
-            src="/profile-picture.jpg" 
-            alt="Profile" 
-            className="h-8 w-8 rounded-full cursor-pointer"
-            onClick={handleProfileClick}  // Toggle profile dropdown on click
-          />
-          {isProfileOpen && (
-            <div className="absolute right-0 bg-white text-black shadow-lg rounded-lg p-12 mt-2 w-[500px] h-[400px] transition-all duration-300 ease-in-out">
-              <div className="flex items-center space-x-8">
-                <img 
-                  src="/profile-picture.jpg" 
-                  alt="Profile" 
-                  className="h-48 w-48 rounded-full"  // Larger profile picture
-                />
-                <div>
-                  <p className="font-semibold text-3xl">John Doe</p> {/* Larger username */}
-                  <p className="text-xl text-gray-600">User ID: 12345</p> {/* Larger user ID */}
-                  <p className="text-xl text-gray-600">Email: johndoe@example.com</p> {/* Larger email */}
-                </div>
+      {/* Profile Picture */}
+      <div className="relative">
+        <img
+          src="/profile-picture.jpg"
+          alt="Profile"
+          className="h-8 w-8 rounded-full cursor-pointer"
+          onClick={handleProfileClick}
+          aria-expanded={isProfileOpen}
+        />
+        {isProfileOpen && (
+          <div className="absolute right-0 bg-white text-black shadow-lg rounded-lg mt-2 w-[400px] p-6 z-50 transition-transform duration-300 ease-in-out transform">
+            <div className="flex items-center space-x-6">
+              <img
+                src="/profile-picture.jpg"
+                alt="Profile"
+                className="h-24 w-24 rounded-full"
+              />
+              <div>
+                <p className="font-semibold text-2xl">John Doe</p>
+                <p className="text-sm text-gray-600">User ID: 12345</p>
+                <p className="text-sm text-gray-600">Email: johndoe@example.com</p>
               </div>
-              <button 
-                className="mt-8 bg-blue-500 text-white px-12 py-6 rounded w-full"
-                onClick={handleSignOut}  // Handle sign out action
-              >
-                Sign Out
-              </button>
             </div>
-          )}
-        </div>
+            <button
+              className="mt-6 bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+    </header>
   );
 };
 
