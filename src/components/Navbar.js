@@ -1,7 +1,10 @@
 import React from 'react';
 import { FaSearch, FaBell, FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-blue-900 text-white flex justify-between items-center p-4 " >
       <div className="flex items-center">
@@ -13,7 +16,7 @@ const Navbar = () => {
           <ul className="flex space-x-6">
             <li className="cursor-pointer">My Space</li>
             <li className="cursor-pointer">Team</li>
-            <li className="cursor-pointer">Organization</li>
+            <li className="cursor-pointer"> Organization </li>
           </ul>
         </nav>
       </div>

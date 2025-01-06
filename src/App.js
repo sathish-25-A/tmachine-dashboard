@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
 import SecondaryNavbar from './components/SecondaryNavbar';
+import TabComponent from './components/TabComponent'
 
 const App = () => {
   const [activePage, setActivePage] = useState('overview'); // Set default to 'overview'
@@ -14,28 +15,25 @@ const App = () => {
   };
 
   return (
+    <>
     <Router>
       <div className="flex flex-col h-screen">
-        {/* Fixed Header with Logo */}
-        <Header handleLogoClick={handleLogoClick} /> {/* Pass the handler to the Header component */}
+        <Header handleLogoClick={handleLogoClick} />
 
-        {/* Fixed Secondary Navbar */}
-        <SecondaryNavbar />
+        {/* <SecondaryNavbar /> */}
 
         <div className="flex flex-1 overflow-hidden">
-          {/* Fixed Sidebar */}
           <Sidebar />
-
-          {/* Scrollable Content Area */}
-          <div className="flex-1 overflow-y-auto bg-gray-100 p-4">
-            <Dashboard activePage={activePage} />
-          </div>
+          <Routes>
+         <Route path="/" element={<Dashboard activePage={activePage} />} />
+         <Route path="/organization" element={<TabComponent/>} />
+         </Routes>
         </div>
-
-        {/* Fixed Footer */}
-        <Footer />
       </div>
     </Router>
+    <Footer />
+  </>
+
   );
 };
 

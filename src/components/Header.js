@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa'; // Importing the close icon
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleProfileClick = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -19,6 +22,11 @@ const Header = () => {
     setIsProfileOpen(false); // Close the profile section when the close icon is clicked
   };
 
+  const handleNavigation = () => {
+    console.log("hdjahj")
+    navigate('/organization')
+  }
+
   return (
     <header className="bg-blue-900 text-white flex justify-between items-center p-4">
       {/* Logo and Navigation */}
@@ -30,7 +38,7 @@ const Header = () => {
           <ul className="flex space-x-6">
             <li className="cursor-pointer hover:text-blue-300">My Space</li>
             <li className="cursor-pointer hover:text-blue-300">Team</li>
-            <li className="cursor-pointer hover:text-blue-300">Organization</li>
+            <li className="cursor-pointer hover:text-blue-300" onClick={handleNavigation}>Organization</li>
           </ul>
         </nav>
       </div>
