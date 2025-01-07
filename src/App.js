@@ -23,6 +23,7 @@ const App = () => {
   };
 
   return (
+    <>
     <Router>
       <div className="flex flex-col h-screen">
         
@@ -36,7 +37,6 @@ const App = () => {
         />
 
         <div className="flex flex-1 overflow-hidden">
-          {/* Fixed Sidebar */}
           <Sidebar />
 
           {/* Scrollable Content Area */}
@@ -55,11 +55,11 @@ const App = () => {
             {activeSection === "organization" && <Dashboard />}
           </div>
         </div>
-
-        {/* Fixed Footer */}
-        <Footer />
       </div>
     </Router>
+    <Footer />
+  </>
+
   );
 };
 

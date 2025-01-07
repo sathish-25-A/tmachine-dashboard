@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 // Profile Dropdown Component
 const ProfileDropdown = ({ isProfileOpen, handleCloseProfile, handleSignOut }) => {
@@ -56,6 +57,8 @@ const ProfileDropdown = ({ isProfileOpen, handleCloseProfile, handleSignOut }) =
 const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const handleProfileClick = () => {
     setIsProfileOpen(!isProfileOpen);
   };
@@ -71,6 +74,10 @@ const Header = () => {
     setIsProfileOpen(false);
   };
 
+  const handleNavigation = () => {
+    navigate('/organization'); // Navigate to Organization route
+  };
+
   return (
     <header className="bg-blue-900 text-white flex justify-between items-center p-4">
       {/* Logo and Navigation */}
@@ -82,7 +89,7 @@ const Header = () => {
           <ul className="flex space-x-6">
             <li className="cursor-pointer hover:text-blue-300">My Space</li>
             <li className="cursor-pointer hover:text-blue-300">Team</li>
-            <li className="cursor-pointer hover:text-blue-300">Organization</li>
+            <li className="cursor-pointer hover:text-blue-300" onClick={handleNavigation}>Organization</li>
           </ul>
         </nav>
       </div>
