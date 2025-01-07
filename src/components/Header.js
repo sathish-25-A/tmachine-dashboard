@@ -1,6 +1,58 @@
-import React, { useState } from 'react';
-import { FaTimes } from 'react-icons/fa'; // Importing the close icon
+import React, { useState, useEffect, useRef } from 'react';
+import { FaTimes } from 'react-icons/fa';
 
+// Profile Dropdown Component
+const ProfileDropdown = ({ isProfileOpen, handleCloseProfile, handleSignOut }) => {
+  const profileDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        handleCloseProfile();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [handleCloseProfile]);
+
+  return (
+    isProfileOpen && (
+      <div
+        ref={profileDropdownRef}
+        className="absolute right-0 bg-white text-black shadow-lg rounded-lg mt-2 w-[400px] p-6 z-50 transition-transform duration-300 ease-in-out"
+      >
+        {/* Close Icon */}
+        <button
+          onClick={handleCloseProfile}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+        >
+          <FaTimes size={20} />
+        </button>
+
+        <div className="flex items-center space-x-6">
+          <img
+            src="/profile-picture.jpg"
+            alt="Profile"
+            className="h-24 w-24 rounded-full"
+          />
+          <div>
+            <p className="font-semibold text-2xl">John Doe</p>
+            <p className="text-sm text-gray-600">User ID: 12345</p>
+            <p className="text-sm text-gray-600">Email: johndoe@example.com</p>
+          </div>
+        </div>
+        <button
+          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
+          onClick={handleSignOut}
+        >
+          Sign Out
+        </button>
+      </div>
+    )
+  );
+};
+
+// Main Header Component
 const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -11,12 +63,12 @@ const Header = () => {
   const handleSignOut = () => {
     if (window.confirm('Are you sure you want to sign out?')) {
       console.log('User signed out');
-      // Implement sign-out logic here, e.g., clearing session or redirecting to login
+      // Implement sign-out logic here
     }
   };
 
   const handleCloseProfile = () => {
-    setIsProfileOpen(false); // Close the profile section when the close icon is clicked
+    setIsProfileOpen(false);
   };
 
   return (
@@ -44,36 +96,11 @@ const Header = () => {
           onClick={handleProfileClick}
           aria-expanded={isProfileOpen}
         />
-        {isProfileOpen && (
-          <div className="absolute right-0 bg-white text-black shadow-lg rounded-lg mt-2 w-[400px] p-6 z-50 transition-transform duration-300 ease-in-out transform">
-            {/* Close Icon */}
-            <button
-              onClick={handleCloseProfile}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-            >
-              <FaTimes size={20} />
-            </button>
-
-            <div className="flex items-center space-x-6">
-              <img
-                src="/profile-picture.jpg"
-                alt="Profile"
-                className="h-24 w-24 rounded-full"
-              />
-              <div>
-                <p className="font-semibold text-2xl">John Doe</p>
-                <p className="text-sm text-gray-600">User ID: 12345</p>
-                <p className="text-sm text-gray-600">Email: johndoe@example.com</p>
-              </div>
-            </div>
-            <button
-              className="mt-6 bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
-              onClick={handleSignOut}
-            >
-              Sign Out
-            </button>
-          </div>
-        )}
+        <ProfileDropdown
+          isProfileOpen={isProfileOpen}
+          handleCloseProfile={handleCloseProfile}
+          handleSignOut={handleSignOut}
+        />
       </div>
     </header>
   );

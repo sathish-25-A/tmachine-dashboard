@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import Dashboard from './pages/Dashboard';
-import Footer from './components/Footer';
-import SecondaryNavbar from './components/SecondaryNavbar';
+import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
+import DynamicSecondaryNavbar from "./components/DynamicSecondaryNavbar";
+import Dashboard from "./pages/Dashboard";
+import TeamSpaceDashboard from "./pages/TeamSpaceDashboard";
+import DepartmentDashboard from "./pages/DepartmentDashboard";
+import PeersDashboard from "./pages/PeersDashboard";
+
 
 const App = () => {
-  const [activePage, setActivePage] = useState('overview'); // Set default to 'overview'
+  // State for navigation and active sections
+  const [activePage, setActivePage] = useState("overview"); // Default page
+  const [activeSection, setActiveSection] = useState("mySpace"); // Default section
+  const [activeSubsection, setActiveSubsection] = useState(null); // Subsection for 'team'
 
+  // Handle logo click to reset navigation
   const handleLogoClick = () => {
-    setActivePage('overview'); // When logo is clicked, set to Overview
+    setActivePage("overview");
+    setActiveSection("mySpace");
+    setActiveSubsection(null);
   };
 
   return (
     <Router>
       <div className="flex flex-col h-screen">
-        {/* Fixed Header with Logo */}
-        <Header handleLogoClick={handleLogoClick} /> {/* Pass the handler to the Header component */}
-
-        {/* Fixed Secondary Navbar */}
-        <SecondaryNavbar />
+        
+        
+        {/* Dynamic Secondary Navbar */}
+        <DynamicSecondaryNavbar
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+          activeSubsection={activeSubsection}
+          setActiveSubsection={setActiveSubsection}
+        />
 
         <div className="flex flex-1 overflow-hidden">
           {/* Fixed Sidebar */}
@@ -28,7 +41,18 @@ const App = () => {
 
           {/* Scrollable Content Area */}
           <div className="flex-1 overflow-y-auto bg-gray-100 p-4">
-            <Dashboard activePage={activePage} />
+            {/* Conditional Rendering Based on Section and Subsection */}
+            {activeSection === "mySpace" && <Dashboard activePage={activePage} />}
+            {activeSection === "team" && activeSubsection === "Team Space" && (
+              <TeamSpaceDashboard />
+            )}
+            {activeSection === "team" && activeSubsection === "Department" && (
+              <DepartmentDashboard />
+            )}
+            {activeSection === "team" && activeSubsection === "Peers" && (
+              <PeersDashboard />
+            )}
+            {activeSection === "organization" && <Dashboard />}
           </div>
         </div>
 

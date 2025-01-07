@@ -3,10 +3,16 @@ import { AiOutlineBell } from 'react-icons/ai';
 
 const Overview = () => {
   const [user, setUser] = useState(null);
-  const [checkedIn, setCheckedIn] = useState(false);
-  const [loginTime, setLoginTime] = useState(null);
+  const [checkedIn, setCheckedIn] = useState(() => localStorage.getItem('checkedIn') === 'true');
+  const [loginTime, setLoginTime] = useState(() => {
+    const savedLoginTime = localStorage.getItem('loginTime');
+    return savedLoginTime ? new Date(savedLoginTime) : null;
+  });
   const [checkoutTime, setCheckoutTime] = useState(null);
-  const [workDuration, setWorkDuration] = useState(0);
+  const [workDuration, setWorkDuration] = useState(() => {
+    const savedDuration = localStorage.getItem('workDuration');
+    return savedDuration ? JSON.parse(savedDuration) : 0;
+  });
   const [isBreakActive, setIsBreakActive] = useState(false);
   const [breakTimeRemaining, setBreakTimeRemaining] = useState(0);
   const [isLunchBreak, setIsLunchBreak] = useState(false);
@@ -20,8 +26,16 @@ const Overview = () => {
         role: 'Software Engineer',
         status: 'WFH',
       });
-    }, 1000);
+    }, 500);
   }, []);
+
+  // Restore elapsed time on page reload
+  useEffect(() => {
+    if (checkedIn && loginTime) {
+      const elapsedTime = Math.floor((new Date() - new Date(loginTime)) / 1000);
+      setWorkDuration((prevDuration) => prevDuration + elapsedTime);
+    }
+  }, [checkedIn, loginTime]);
 
   useEffect(() => {
     let workTimerInterval;
@@ -29,10 +43,9 @@ const Overview = () => {
       workTimerInterval = setInterval(() => {
         if (loginTime && !checkoutTime) {
           setWorkDuration((prevDuration) => {
-            if (prevDuration >= 86400) {
-              return 0;
-            }
-            return prevDuration + 1;
+            const newDuration = prevDuration + 1;
+            localStorage.setItem('workDuration', JSON.stringify(newDuration));
+            return newDuration;
           });
         }
       }, 1000);
@@ -62,7 +75,6 @@ const Overview = () => {
     return () => clearInterval(breakTimerInterval);
   }, [isBreakActive, breakTimeRemaining]);
 
-  // Define the handleBreakClick function here
   const handleBreakClick = (duration) => {
     if (isBreakActive) {
       setIsBreakActive(false);
@@ -77,9 +89,14 @@ const Overview = () => {
   const handleCheckInOutClick = () => {
     if (checkedIn) {
       setCheckoutTime(new Date());
+      localStorage.removeItem('loginTime');
+      localStorage.removeItem('checkedIn');
     } else {
-      setLoginTime(new Date());
+      const now = new Date();
+      setLoginTime(now);
       setCheckoutTime(null);
+      localStorage.setItem('loginTime', now.toISOString());
+      localStorage.setItem('checkedIn', true);
     }
     setCheckedIn(!checkedIn);
   };
