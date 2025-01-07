@@ -6,8 +6,11 @@ import {
   FaExclamationCircle,
   FaBaby,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Leave = () => {
+  const navigate = useNavigate();
+
   const leaveTypes = [
     {
       name: "Compensatory Off",
@@ -41,6 +44,10 @@ const Leave = () => {
     },
   ];
 
+  const handleAvailClick = () => {
+    navigate("/apply-leave"); // Navigate to ApplyLeavePage
+  };
+
   return (
     <div className="bg-gray-50 shadow-lg p-6 rounded-lg max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-6 text-center">Leave Overview</h2>
@@ -73,7 +80,10 @@ const Leave = () => {
             </div>
 
             {/* Apply Leave Button */}
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full text-sm font-medium">
+            <button
+              onClick={handleAvailClick}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full text-sm font-medium"
+            >
               Apply Leave
             </button>
           </div>

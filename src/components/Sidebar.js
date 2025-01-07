@@ -1,12 +1,15 @@
 import React from 'react';
 import { FaHome, FaFileAlt, FaRegClock, FaCalendar } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const menuItems = [
-    { name: 'Home', icon: <FaHome /> },
-    { name: 'Leave Tracker', icon: <FaFileAlt /> },
-    { name: 'Time Tracker', icon: <FaRegClock /> },
-    { name: 'Attendance', icon: <FaCalendar /> },
+    { name: 'Home', icon: <FaHome />, path: '/overview' },
+    { name: 'Leave Tracker', icon: <FaFileAlt />, path: '/' },
+    { name: 'Time Tracker', icon: <FaRegClock />, path: '/time-tracker' },
+    { name: 'Attendance', icon: <FaCalendar />, path: '/attendance' },
   ];
 
   return (
@@ -15,7 +18,8 @@ const Sidebar = () => {
         {menuItems.map((item, index) => (
           <li
             key={index}
-            className="flex flex-col items-center justify-center hover:bg-gray-700 p-2 rounded-lg cursor-pointer"
+            onClick={() => navigate(item.path)}
+            className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer hover:bg-gray-700`}
           >
             <span className="text-2xl mb-2">{item.icon}</span>
             <span className="text-xs text-center">{item.name}</span>

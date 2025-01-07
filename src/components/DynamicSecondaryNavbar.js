@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa'; 
-import Header from './Header';
 
 const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsection, setActiveSubsection }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -38,7 +37,12 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
   }, []);
 
   const handleSubNavClick = (subsection) => {
-    setActiveSubsection(subsection); 
+    setActiveSubsection(subsection);
+  };
+
+  const handleSectionClick = (section) => {
+    setActiveSection(section);
+    setActiveSubsection(null); // Reset subsection when switching sections
   };
 
   const secondaryNavItems = {
@@ -60,28 +64,19 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
             <ul className="flex space-x-6">
               <li
                 className={`cursor-pointer ${activeSection === "mySpace" ? "font-bold" : ""}`}
-                onClick={() => {
-                  setActiveSection("mySpace");
-                  setActiveSubsection(null); // Reset subsection
-                }}
+                onClick={() => handleSectionClick("mySpace")}
               >
                 My Space
               </li>
               <li
                 className={`cursor-pointer ${activeSection === "team" ? "font-bold" : ""}`}
-                onClick={() => {
-                  setActiveSection("team");
-                  setActiveSubsection(null); // Reset subsection
-                }}
+                onClick={() => handleSectionClick("team")}
               >
                 Team
               </li>
               <li
                 className={`cursor-pointer ${activeSection === "organization" ? "font-bold" : ""}`}
-                onClick={() => {
-                  setActiveSection("organization");
-                  setActiveSubsection(null); // Reset subsection
-                }}
+                onClick={() => handleSectionClick("organization")}
               >
                 Organization
               </li>
