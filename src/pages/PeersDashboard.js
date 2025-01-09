@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { consolidatedMembers } from './data';
 
+
 const PeersDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
+
   // Extracting the department head and team lead
-  const departmentHead = consolidatedMembers.find((member) => member.role === 'Senior Developer' && member.status === 'Checked In');
+  const departmentHead = consolidatedMembers.find((member) => member.role === 'CEO' && member.status === 'Checked In');
   const teamLead = consolidatedMembers.find((member) => member.role === 'Team Lead' && member.status === 'Checked In');
+
 
   // Filtering members based on search query
   const filteredMembers = consolidatedMembers.filter((member) =>
     member.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
 
   return (
     <div className="bg-white p-4 rounded shadow">
@@ -33,6 +37,7 @@ const PeersDashboard = () => {
         )}
       </div>
 
+
       {/* Team Lead Section */}
       <div className="mb-6">
         <h4 className="text-lg font-bold mb-3">Team Lead</h4>
@@ -51,6 +56,7 @@ const PeersDashboard = () => {
         )}
       </div>
 
+
       {/* Search Input */}
       <input
         type="text"
@@ -59,6 +65,7 @@ const PeersDashboard = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="p-2 border rounded-lg bg-gray-50 flex-grow mb-4"
       />
+
 
       {/* All Members Grid Section */}
       <div className="grid grid-cols-3 gap-4">
@@ -83,5 +90,6 @@ const PeersDashboard = () => {
     </div>
   );
 };
+
 
 export default PeersDashboard;

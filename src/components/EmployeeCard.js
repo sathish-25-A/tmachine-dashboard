@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const EmployeeCard = ({ employee }) => {
   return (
     <div className="flex flex-col sm:flex-row items-center bg-white shadow-md p-4 rounded-md mb-4">
@@ -22,5 +23,6 @@ const EmployeeCard = ({ employee }) => {
     </div>
   );
 };
+
 
 export default EmployeeCard;

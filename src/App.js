@@ -1,23 +1,27 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from "react";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
+import { BrowserRouter as Router } from "react-router-dom";
 import DynamicSecondaryNavbar from "./components/DynamicSecondaryNavbar";
 import Dashboard from "./pages/Dashboard";
 import TeamSpaceDashboard from "./pages/TeamSpaceDashboard";
 import DepartmentDashboard from "./pages/DepartmentDashboard";
 import PeersDashboard from "./pages/PeersDashboard";
+import EmployeeTree from "./components/EmployeeTree";
+import EmployeeList from "./components/EmployeeList";
+import ClickOrganization from "./pages/ClickOrganization";
+
 
 const App = () => {
-  // State for navigation and active sections
-  const [activeSection, setActiveSection] = useState("mySpace"); // Default section
-  const [activeSubsection, setActiveSubsection] = useState(null); // Subsection for 'team'
+  const [activeSection, setActiveSection] = React.useState("mySpace");
+  const [activeSubsection, setActiveSubsection] = React.useState(null);
+
 
   return (
     <>
       <Router>
-        <div className="flex flex-col">
-          {/* Dynamic Secondary Navbar */}
+        <div className="flex flex-col h-screen">
+          {/* Fixed Header with Dynamic Secondary Navbar */}
           <DynamicSecondaryNavbar
             activeSection={activeSection}
             setActiveSection={setActiveSection}
@@ -25,30 +29,40 @@ const App = () => {
             setActiveSubsection={setActiveSubsection}
           />
 
+
           <div className="flex flex-1 overflow-hidden">
+            {/* Fixed Sidebar */}
             <Sidebar />
+
 
             {/* Scrollable Content Area */}
             <div className="flex-1 overflow-y-auto bg-gray-100 p-4">
-              {/* Conditional Rendering Based on Section and Subsection */}
+              {/* Conditional rendering based on active section and subsection */}
               {activeSection === "mySpace" && <Dashboard />}
-              {activeSection === "team" && activeSubsection === "Team Space" && (
-                <TeamSpaceDashboard />
-              )}
-              {activeSection === "team" && activeSubsection === "Department" && (
-                <DepartmentDashboard />
-              )}
+              {activeSection === "team" &&
+                activeSubsection === "Team Space" && <TeamSpaceDashboard />}
+              {activeSection === "team" &&
+                activeSubsection === "Department" && <DepartmentDashboard />}
               {activeSection === "team" && activeSubsection === "Peers" && (
                 <PeersDashboard />
               )}
-              {activeSection === "organization" && <Dashboard />}
+              {activeSection === "organization" &&
+                activeSubsection === "Employee Tree" && <EmployeeTree />}
+              {activeSection === "organization" &&
+                activeSubsection === "Employee List" && <EmployeeList />}
+              {activeSection === "organization" &&
+                activeSubsection === "Overview" && <ClickOrganization />}
             </div>
           </div>
+
+
+          {/* Fixed Footer */}
+          <Footer />
         </div>
       </Router>
-      <Footer />
     </>
   );
 };
+
 
 export default App;

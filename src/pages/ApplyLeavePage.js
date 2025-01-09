@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 const ApplyLeavePage = () => {
-  const navigate = useNavigate();
   const [leaveType, setLeaveType] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [teamEmail, setTeamEmail] = useState('');
   const [reason, setReason] = useState('');
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,19 +15,27 @@ const ApplyLeavePage = () => {
     console.log('Leave Application Submitted:', { leaveType, startDate, endDate, teamEmail, reason });
   };
 
+
   const handleClose = () => {
-    navigate('/'); // Navigate back to Leave page
+    // Close the page or perform any logic here (optional, you can navigate back)
+    window.history.back();
   };
+
 
   return (
     <div className="relative p-6 bg-white min-h-screen">
       {/* Close Button */}
       <button
-        onClick={handleClose}
-        className="absolute top-4 right-4 text-3xl text-gray-600 hover:text-red-600 bg-transparent transition-all"
-      >
-        &times; {/* This is the "X" character */}
-      </button>
+  onClick={handleClose}
+  className="absolute top-4 right-4 text-3xl text-gray-600 hover:text-red-600 bg-transparent transition-all"
+>
+  &times; {/* This is the "X" character */}
+</button>
+
+
+
+
+
 
       <h1 className="text-4xl font-extrabold text-center mb-6 text-gray-800 tracking-widest">
         Apply Leave
@@ -50,6 +58,7 @@ const ApplyLeavePage = () => {
           </select>
         </div>
 
+
         <div className="mb-4">
           <label htmlFor="startDate" className="block text-gray-700">Start Date</label>
           <input
@@ -60,6 +69,7 @@ const ApplyLeavePage = () => {
             className="w-full p-2 border rounded"
           />
         </div>
+
 
         <div className="mb-4">
           <label htmlFor="endDate" className="block text-gray-700">End Date</label>
@@ -72,40 +82,38 @@ const ApplyLeavePage = () => {
           />
         </div>
 
+
         <div className="mb-4">
-          <label htmlFor="teamEmail" className="block text-gray-700">Team Email</label>
+          <label htmlFor="teamEmail" className="block text-gray-700">Team Email ID</label>
           <input
             type="email"
             id="teamEmail"
             value={teamEmail}
             onChange={(e) => setTeamEmail(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="team@example.com"
           />
         </div>
 
+
         <div className="mb-4">
-          <label htmlFor="reason" className="block text-gray-700">Reason for Leave</label>
+          <label htmlFor="reason" className="block text-gray-700">Reason</label>
           <textarea
             id="reason"
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             className="w-full p-2 border rounded"
-            rows="4"
           ></textarea>
         </div>
 
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-          >
-            Submit Application
-          </button>
+
+        <div className="flex justify-between">
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+          <button type="button" onClick={() => window.history.back()} className="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
         </div>
       </form>
     </div>
   );
 };
+
 
 export default ApplyLeavePage;

@@ -1,28 +1,70 @@
 import React from 'react';
+import { useLocation, NavLink } from 'react-router-dom';
 import { FaSearch, FaBell, FaUserCircle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
+
+
+  const renderLinks = () => {
+    if (location.pathname === '/leave-tracker' || location.pathname.startsWith('/leave')) {
+      return (
+        <nav className="ml-10">
+          <ul className="flex space-x-6">
+            <li>
+              <NavLink to="/leave-summary" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
+                My Data
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/leave-requests" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
+                Team
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/leave-holiday-dashboard" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
+                Holiday
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      );
+    } else {
+      return (
+        <nav className="ml-10">
+          <ul className="flex space-x-6">
+            <li>
+              <NavLink to="/my-space" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
+                My Space
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/team" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
+                Team
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/organization" className={({ isActive }) => isActive ? 'text-blue-500' : 'text-white'}>
+                Organization
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      );
+    }
+  };
+
 
   return (
-    <div className="bg-blue-900 text-white flex justify-between items-center p-4 " >
+    <div className="bg-blue-900 text-white flex justify-between items-center p-4">
       <div className="flex items-center">
-        {/* Logo */}
         <div className="text-2xl font-bold">
           <img src="/path/to/logo.png" alt="Logo" className="h-8" /> {/* Replace with actual logo path */}
         </div>
-        <nav className="ml-10">
-          <ul className="flex space-x-6">
-            <li className="cursor-pointer">My Space</li>
-            <li className="cursor-pointer">Team</li>
-            <li className="cursor-pointer"> Organization </li>
-          </ul>
-        </nav>
+        {renderLinks()}
       </div>
-
       <div className="flex items-center space-x-4">
-        {/* Search Bar */}
         <div className="relative">
           <input
             type="text"
@@ -31,13 +73,9 @@ const Navbar = () => {
           />
           <FaSearch className="absolute left-3 top-2 text-gray-600" />
         </div>
-
-        {/* Notifications Icon */}
         <div className="text-xl cursor-pointer">
           <FaBell />
         </div>
-
-        {/* Profile Picture and User Avatar */}
         <div className="flex items-center space-x-2 cursor-pointer">
           <img src="/path/to/profile-picture.jpg" alt="Profile" className="h-8 w-8 rounded-full" />
           <FaUserCircle className="text-2xl" />
@@ -46,5 +84,6 @@ const Navbar = () => {
     </div>
   );
 };
+
 
 export default Navbar;

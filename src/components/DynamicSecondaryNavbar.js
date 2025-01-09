@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaTimes } from 'react-icons/fa'; 
+import { FaTimes } from 'react-icons/fa';
 
 const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsection, setActiveSubsection }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -10,6 +10,7 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
     setIsProfileOpen(!isProfileOpen);
   };
 
+
   // Handle sign-out logic (clear session, redirect, etc.)
   const handleSignOut = () => {
     if (window.confirm('Are you sure you want to sign out?')) {
@@ -18,10 +19,12 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
     }
   };
 
+
   // Close the profile dropdown when the close icon is clicked
   const handleCloseProfile = () => {
     setIsProfileOpen(false);
   };
+
 
   // Close profile dropdown if clicked outside
   useEffect(() => {
@@ -36,19 +39,19 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
     };
   }, []);
 
+
   const handleSubNavClick = (subsection) => {
     setActiveSubsection(subsection);
   };
 
-  const handleSectionClick = (section) => {
-    setActiveSection(section);
-    setActiveSubsection(null); // Reset subsection when switching sections
-  };
+
+  
+ 
 
   const secondaryNavItems = {
     team: ["Team Space", "Department", "Peers"],
     mySpace: ["Overview", "Projects", "Tasks"],
-    organization: ["Overview", "Announcements", "Policies"],
+    organization: ["Overview", "Employee Tree", "Employee List",],
   };
 
   return (
@@ -58,44 +61,52 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
         <div className="flex items-center">
           {/* Logo */}
           <div className="text-2xl font-bold">
-            <img src="T-Machine.AI_logo.png" alt="Logo" className="h-8" />
+            <img src="T-Machine.Ai_logo.png" alt="Logo" className="h-8" />
           </div>
           <nav className="ml-10">
             <ul className="flex space-x-6">
               <li
                 className={`cursor-pointer ${activeSection === "mySpace" ? "font-bold" : ""}`}
-                onClick={() => handleSectionClick("mySpace")}
+                onClick={() => {
+                  setActiveSection("mySpace");
+                  setActiveSubsection("Overview"); // Reset subsection
+                }}
               >
                 My Space
               </li>
               <li
                 className={`cursor-pointer ${activeSection === "team" ? "font-bold" : ""}`}
-                onClick={() => handleSectionClick("team")}
+                onClick={() => {
+                  setActiveSection("team");
+                  setActiveSubsection("Team Space"); // Reset subsection
+                }}
               >
                 Team
               </li>
               <li
                 className={`cursor-pointer ${activeSection === "organization" ? "font-bold" : ""}`}
-                onClick={() => handleSectionClick("organization")}
+                onClick={() => {
+                  setActiveSection("organization");
+                  setActiveSubsection("Overview"); // Reset subsection
+                }}
               >
                 Organization
               </li>
             </ul>
           </nav>
         </div>
-
         {/* Profile Picture and Dropdown */}
-        <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4">
           <div className="relative">
-            <img 
-              src="/profile-picture.jpg" 
-              alt="Profile" 
+            <img
+              src="/profile-picture.jpg"
+              alt="Profile"
               className="h-8 w-8 rounded-full cursor-pointer"
               onClick={handleProfileClick}  
             />
             {isProfileOpen && (
-              <div 
-                ref={profileDropdownRef} 
+              <div
+                ref={profileDropdownRef}
                 className="absolute right-0 bg-white text-black shadow-lg rounded-lg mt-2 w-[500px] p-6 z-50 transition-transform duration-300 ease-in-out"
               >
                 {/* Close Icon */}
@@ -106,10 +117,11 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
                   <FaTimes size={20} />
                 </button>
 
+
                 <div className="flex items-center space-x-6">
-                  <img 
-                    src="/profile-picture.jpg" 
-                    alt="Profile" 
+                  <img
+                    src="/profile-picture.jpg"
+                    alt="Profile"
                     className="h-24 w-24 rounded-full"
                   />
                   <div>
@@ -118,7 +130,7 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
                     <p className="text-sm text-gray-600">Email: johndoe@example.com</p>
                   </div>
                 </div>
-                <button 
+                <button
                   className="mt-6 bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
                   onClick={handleSignOut}  
                 >
@@ -129,6 +141,8 @@ const DynamicSecondaryNavbar = ({ activeSection, setActiveSection, activeSubsect
           </div>
         </div>
       </div>
+
+      
 
       {/* Dynamic Secondary Navbar */}
       {activeSection && secondaryNavItems[activeSection] && (
